@@ -1,4 +1,21 @@
 {
+  "name": "@remotesynth/foo",
+  "version": "1.0.0",
+  "description": "Pull content from StepZen and convert them to files for SSGs",
+  "main": "pullContent.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/remotesynth/stepzen-content-pull.git"
+  },
+  "keywords": [
+    "graphql"
+  ],
+  "author": "Brian Rinaldi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/remotesynth/stepzen-content-pull/issues"
+  },
+  "homepage": "https://github.com/remotesynth/stepzen-content-pull#readme",
   "dependencies": {
     "dotenv": "^10.0.0",
     "js-yaml": "^4.1.0",

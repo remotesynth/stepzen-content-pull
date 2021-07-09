@@ -50,3 +50,7 @@ The result of the query should be an array of items. The following fields are al
 * `slug_field` (required) - This is a field in the query that you would like converted to a slug (ex. "My First Post" to `my-first-post.md`). This is required for multiple Markdown files as each item is generated with a unique file name. The value of `convert_to` should be either `.md` or `.markdown`.
 * `body_field` (required) - This is the field that will populate the body of each Markdown file. Every other field returned by the query will be converted to YAML and placed within the frontmatter.
 * `additional_frontmatter` (optional) - This is a JavaScript object representing additional fields that will be written as YAML in each files frontmatter. In some cases, you'll want to add additional frontmatter fields to every result returned by the query. For example, some SSGs require that you specify a `layout` value, so you might have `layout: 'post'` as part of this object.
+
+## Running the Script
+
+You can run the content pull via ??

@@ -2,6 +2,7 @@
   "dependencies": {
     "dotenv": "^10.0.0",
     "js-yaml": "^4.1.0",
+    "minimist": "^1.2.5",
     "slugify": "^1.5.3"
   }
 }

@@ -1,67 +1,13 @@
 const https = require('https');
-const path = require('path');
-const fs = require('fs');
 const slugify = require('slugify');
 const yaml = require('js-yaml');
+const argv = require('minimist')(process.argv.slice(2));
+const { writeFile, writeMarkdown } = require('./file-utils.js');
 require('dotenv').config();
 
-// define the queries and details on how to convert them
-const config = {
-  account_name: 'biggs',
-  endpoint: '/netlify/pets-blog',
-  queries: [
-    {
-      query: `{
-          getPosts {
-            title
-            body
-            published
-            id
-            categories {
-              name
-            }
-          }
-        }`,
-      convert_to: '.md',
-      slug_field: 'title',
-      body_field: 'body',
-      folder: '_posts',
-      additional_frontmatter: {
-        layout: 'post',
-      },
-    },
-    {
-      query: `{
-          getPostByID(id: "44") {
-            title
-            published
-            categories {
-              name
-            }
-            id
-            body
-          }
-        }`,
-      convert_to: '.md',
-      slug_field: 'title',
-      body_field: 'body',
-      folder: '',
-      additional_frontmatter: {
-        layout: 'page',
-      },
-    },
-    {
-      query: `{
-          getCategories {
-            name
-            id
-          }
-        }`,
-      convert_to: 'categories.yaml',
-      folder: 'data',
-    },
-  ],
-};
+let config_file = './config.js';
+if (argv.config) config_file = argv.config;
+const config = require(config_file);
 
 // set up the API connection, you'll need a .env with a STEPZEN_API_KEY
 const options = {
@@ -100,17 +46,13 @@ config.queries.map((query) => {
         let destination = `./${query.folder}/${query.convert_to}`;
         // if folder was empty remove the double slash
         destination = destination.replaceAll('//', '/');
-        // make the directory if it doesn't exist
-        makeDirectory(destination);
-        fs.writeFileSync(destination, JSON.stringify(theData));
+        writeFile(destination, JSON.stringify(theData));
       } else if (fileType === 'yaml') {
         let destination = `./${query.folder}/${query.convert_to}`;
         // if folder was empty remove the double slash
         destination = destination.replaceAll('//', '/');
         let yamlStr = yaml.dump(theData);
-        // make the directory if it doesn't exist
-        makeDirectory(destination);
-        fs.writeFileSync(destination, yamlStr);
+        writeFile(destination, yamlStr);
       } else if (fileType === 'md' || fileType === 'markdown') {
         // generate a markdown page for every item in the array
         if (Array.isArray(theData)) {
@@ -128,8 +70,6 @@ config.queries.map((query) => {
               );
             }
             delete frontmatter[query.body_field];
-            // make the directory if it doesn't exist
-            makeDirectory(destination);
             writeMarkdown(destination, frontmatter, body);
           });
         } else {
@@ -150,8 +90,6 @@ config.queries.map((query) => {
             );
           }
           delete frontmatter[query.body_field];
-          // make the directory if it doesn't exist
-          makeDirectory(destination);
           writeMarkdown(destination, frontmatter, body);
         }
       }
@@ -160,23 +98,3 @@ config.queries.map((query) => {
   req.write(JSON.stringify({ query: query.query }));
   req.end();
 });
-
-function writeMarkdown(destination, frontmatter, body) {
-  const lines = [
-    '---',
-    yaml.dump(frontmatter).trim(),
-    '---',
-    body ? body.toString().trim() : '',
-    '',
-  ];
-  const content = lines.join('\n');
-  fs.writeFileSync(destination, content);
-}
-
-function makeDirectory(filePath) {
-  var dirname = path.dirname(filePath);
-  if (fs.existsSync(dirname)) {
-    return;
-  }
-  fs.mkdirSync(dirname, { recursive: true });
-}

@@ -1,5 +1,5 @@
 {
-  "name": "@remotesynth/foo",
+  "name": "@remotesynth/stepzen-content-pull",
   "version": "1.0.0",
   "description": "Pull content from StepZen and convert them to files for SSGs",
   "main": "./lib/pullContent.js",

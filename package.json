@@ -2,7 +2,10 @@
   "name": "@remotesynth/foo",
   "version": "1.0.0",
   "description": "Pull content from StepZen and convert them to files for SSGs",
-  "main": "pullContent.js",
+  "main": "./lib/pullContent.js",
+  "bin": {
+    "pullContent": "./bin/index.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/remotesynth/stepzen-content-pull.git"

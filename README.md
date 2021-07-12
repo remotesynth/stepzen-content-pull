@@ -1,5 +1,9 @@
 # StepZen Content Pull for Jamstack Sites
 
+```bash
+npx @remotesynth/stepzen-content-pull
+```
+
 This project is aimed at making it easier to pull content from any source hooked into your [StepZen GraphQL API](https://stepzen.com) and convert that into file-based resources that can be processed at build time in any static site generator. While this can work with any SSG, it is especially useful for ones that do not have a built-in means to call an API directly during the build.
 
 This can be combined with the [StepZen Netlify Build Plugin](https://stepzen.com/docs/connecting-frontends/netlify-build-plugin) to create a build workflow that automatically pulls new content from the API whenever a build is process. (See [this tutorial](https://www.netlify.com/blog/2021/06/10/how-to-build-a-database-driven-jamstack-site/) on Netlify's blog for a general idea of how this workflow could be set up).
@@ -53,4 +57,14 @@ The result of the query should be an array of items. The following fields are al
 
 ## Running the Script
 
-You can run the content pull via ??
+You can run the content pull via:
+
+```bash
+npx @remotesynth/stepzen-content-pull
+```
+
+You'll need to have a `config.js` in the folder you are running in as well as a `.env` with your `STEPZEN_API_KEY`. Alternatively, you can specify a different config using the `--config` flag. For example:
+
+```bash
+npx @remotesynth/stepzen-content-pull --config "configs/content-pull-confg.js"
+```

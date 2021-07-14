@@ -10,9 +10,9 @@ This can be combined with the [StepZen Netlify Build Plugin](https://stepzen.com
 
 ## Configuration
 
-This library requires two files to function:
+This library requires two things to function:
 
-1. A `.env` file containing your `STEPZEN_API_KEY` that can be found on your [StepZen account page](https://stepzen.com/account). Note, it does not require the Admin Key, just the standard API Key.
+1. A `.env` file containing your `STEPZEN_API_KEY` or your API key passed via the `--apikey` flag. Your API key can be found on your [StepZen account page](https://stepzen.com/account). Note, it does not require the Admin Key, just the standard API Key.
 2. A `config.js` file laying out the queries from which content will be generated. You can see an example file in `example.config.js`. More details on this file are below.
 
 ### config.js
@@ -67,4 +67,10 @@ You'll need to have a `config.js` in the folder you are running in as well as a 
 
 ```bash
 npx @remotesynth/stepzen-content-pull --config "configs/content-pull-confg.js"
+```
+
+Or you can pass an API key via the `--apikey` flag.
+
+```bash
+npx @remotesynth/stepzen-content-pull --apikey "my-api-key"
 ```

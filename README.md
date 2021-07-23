@@ -30,6 +30,7 @@ There are four types of files that can be converted. The configuration for the `
 * `query` - This is the GraphQL query that will be sent to the endpoint.
 * `convert_to` - This is the file name or file type you want to convert the data to. For single files like JSON/YAML data files, you would like the full file name (i.e. `mydata.json` or `mydata.yaml`). This also applies to single Markdown files (i.e. `about.md` or `about.markdown`) that you do not want to generate a slug for. For an array of items to be converted to Markdown, you only need to supply the file extension (i.e. `.md` or `.markdown`). The tool does not yet support looping through a result and writing unique data files. For YAML or JSON, the full results are converted and written as a single data file.
 * `folder` - This is the relative path to the folder within your project that the file should be written to. For example, a value of `_posts` will write the `/_posts` folder within your project. An empty value will write the files to the root directory of your project.
+* `root_node` - Some queries don't return the data you want to convert in the root of the query result. You can use `root_node` to flatten the results to properly convert to JSON, YAML or Markdown that you need. For example, a query may return items under an `edges` array and then each result under a `node` object within each array item. You can specify `root_node: 'edges[].node` in order to flatten the object in a way that will properly convert each item into Markdown.
 
 #### 1. Converting to JSON
 

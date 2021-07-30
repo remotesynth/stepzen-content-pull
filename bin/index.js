@@ -11,6 +11,4 @@ if (argv.apikey) apiKey = argv.apikey;
 const configPath = path.resolve(process.cwd(), config_file || 'config.js');
 const config = require(configPath);
 
-console.log(apiKey);
-
 pullContent.runQueries(config, apiKey);
